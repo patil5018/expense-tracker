@@ -3,23 +3,28 @@
 <div class="summary">
   <div class="card">
     <h3>Total Balance</h3>
-    <p>₹ {{balance}}</p>
+    <p>₹ {{getBalance()}}</p>
   </div>
 
   <div class="card">
     <h3>Total Income</h3>
-    <p>₹{{ income }}</p>
+    <p>₹{{ getTotalIncome() }}</p>
   </div>
 
   <div class="card">
     <h3>Total Expenses</h3>
-    <p>₹{{ expenses }}</p>
+    <p>₹{{ getTotalExpenses() }}</p>
   </div>
 </div>
 
 <h2>Recent Transactions</h2>
-@for (transaction of recentTransactions; track transaction) {
-  <p>   {{ transaction.name }} - ₹{{ transaction.amount }}</p>
+@for (transaction of getTransactions(); track transaction) {
+  <div>
+    <p>Description: {{ transaction.description }}</p>
+    <p>Amount: ₹{{ transaction.amount }}</p>
+    <p>Type: {{ transaction.type }}</p>
+    <hr>
+  </div>
 }
 
-<input [value]="balance">
+<!--<input [value]="balance">-->

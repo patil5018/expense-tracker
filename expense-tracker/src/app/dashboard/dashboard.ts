@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Expense } from '../expense';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,31 +8,29 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
-  balance = 42000;
-  income = 65000;
-  expenses = 23000;
 
-  recentTransactions= [
-      {
-        name: 'Salary',
-        amount: 65000,
-        type: 'income'
-        },
-        {
-          name: 'Groceries',
-          amount: 2500,
-          type: 'expense'
-        },
-        {
-          name: 'Electricity',
-          amount: 2000,
-          type: 'expense'
-        },
-        {
-          name: 'Internet',
-          amount: 1000,
-          type: 'expense'
-        },
-    ]
+  constructor(private expenseService: Expense) {
+    console.log(this.expenseService.transactions);
+    }
 
+  getTotalIncome() {
+    return this.expenseService.transactions
+      .filter(transaction => transaction.type === 'income')
+      .reduce((total, transaction) => total + transaction.amount, 0);
   }
+
+  getTotalExpenses() {
+    return this.expenseService.transactions
+      .filter(transaction => transaction.type === 'expense')
+      .reduce((total, transaction) => total + transaction.amount, 0);
+  }
+
+  getBalance() {
+    return this.getTotalIncome() - this.getTotalExpenses();
+  }
+
+  getTransactions() {
+    return this.expenseService.transactions;
+  }
+
+}

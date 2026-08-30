@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Transaction } from './transaction';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Expense {
-    transactions: any[] = [];
+    transactions: Transaction[] = [];
     addTransaction(transaction: any) {
       this.transactions.push(transaction);
     }

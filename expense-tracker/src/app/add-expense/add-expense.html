@@ -1,10 +1,10 @@
 <h1>Add Expenses:</h1>
 
 <label>Description: </label>
-<input type="text" placeholder="Description" [(ngModel)]="description">
+<input type="text" placeholder="Description" [(ngModel)]="description" required>
 
 <label>Amount: </label>
-<input type="number" placeholder="Amount" [(ngModel)]="amount">
+<input type="number" placeholder="Amount" [(ngModel)]="amount" required min="1">
 
 <select [(ngModel)]="type">
   <option value="expense">Expense</option>
