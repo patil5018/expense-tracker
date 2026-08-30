@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Expense } from '../expense';
-import { Transaction } from '../transaction';
+import { Transaction,TransactionType } from '../transaction';
 
 @Component({
   selector: 'app-add-expense',
@@ -14,7 +14,7 @@ export class AddExpense {
 
   description: string = '';
   amount: number = 0;
-  type: 'income' | 'expense' = 'expense';
+  type: TransactionType='expense';
 
   descriptionError: string='';
   amountError: string='';
