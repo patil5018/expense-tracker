@@ -1,0 +1,25 @@
+<h1>Expense Tracker</h1>
+
+<div class="summary">
+  <div class="card">
+    <h3>Total Balance</h3>
+    <p>₹ {{balance}}</p>
+  </div>
+
+  <div class="card">
+    <h3>Total Income</h3>
+    <p>₹{{ income }}</p>
+  </div>
+
+  <div class="card">
+    <h3>Total Expenses</h3>
+    <p>₹{{ expenses }}</p>
+  </div>
+</div>
+
+<h2>Recent Transactions</h2>
+@for (transaction of recentTransactions; track transaction) {
+  <p>   {{ transaction.name }} - ₹{{ transaction.amount }}</p>
+}
+
+<input [value]="balance">

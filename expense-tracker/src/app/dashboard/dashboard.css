@@ -1,0 +1,10 @@
+.summary {
+  display: flex;
+  gap: 20px;
+}
+
+.card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 200px;
+}

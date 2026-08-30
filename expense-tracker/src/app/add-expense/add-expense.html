@@ -1,0 +1,25 @@
+<h1>Add Expenses:</h1>
+
+<label>Description: </label>
+<input type="text" placeholder="Description" [(ngModel)]="description">
+
+<label>Amount: </label>
+<input type="number" placeholder="Amount" [(ngModel)]="amount">
+
+<select [(ngModel)]="type">
+  <option value="expense">Expense</option>
+  <option value="income">Income</option>
+</select>
+
+
+<button (click)="addTransaction()">Add Transaction</button>
+
+<h2>Transactions</h2>
+
+<!--<div *ngFor="let transaction of transactions">
+  <p>Description: {{ transaction.description }}</p>
+  <p>Amount: ₹{{ transaction.amount }}</p>
+  <p>Type: {{ transaction.type }}</p>
+
+  <hr>
+</div>-->
