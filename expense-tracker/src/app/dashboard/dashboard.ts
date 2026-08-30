@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Expense } from '../expense';
 import { Transaction } from '../transaction';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +11,10 @@ import { Transaction } from '../transaction';
 })
 export class Dashboard {
 
-  constructor(private expenseService: Expense) {
+  constructor(
+      private expenseService: Expense,
+      private router: Router
+      ) {
     console.log(this.expenseService.transactions);
     }
 
@@ -36,6 +40,16 @@ export class Dashboard {
 
   deleteTransaction(transaction: Transaction) {
       this.expenseService.deleteTransaction(transaction);
+  }
+
+  editTransaction(transaction: Transaction) {
+            this.expenseService.editingTransaction=transaction;
+            this.router.navigate(['/add-expense']);
+  }
+
+  navigateToAddExpense(){
+      this.expenseService.editingTransaction=null;
+      this.router.navigate(['/add-expense']);
   }
 
 }

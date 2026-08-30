@@ -17,6 +17,7 @@
   </div>
 </div>
 
+<button (click)="navigateToAddExpense()">Add Expenses</button>
 <h2>Recent Transactions</h2>
 @for (transaction of getTransactions(); track transaction) {
   <div>
@@ -24,6 +25,7 @@
     <p>Amount: ₹{{ transaction.amount }}</p>
     <p>Type: {{ transaction.type }}</p>
     <button (click)="deleteTransaction(transaction)">Delete</button>
+    <button (click)="editTransaction(transaction)">Edit</button>
     <hr>
   </div>
 }

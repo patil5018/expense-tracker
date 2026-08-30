@@ -7,7 +7,10 @@ import { Transaction } from './transaction';
 export class Expense {
     transactions: Transaction[] = [];
 
+    editingTransaction: Transaction | null=null;
+
     addTransaction(transaction: Transaction) {
+      transaction.id= Date.now();
       this.transactions.push(transaction);
     }
 
@@ -17,5 +20,12 @@ export class Expense {
       if(index!==-1) {
         this.transactions.splice(index,1);
       }
+  }
+
+  updateTransaction(updatedTransaction: Transaction){
+    const index= this.transactions.findIndex(transaction=> transaction.id=== updatedTransaction.id);
+    if(index!==-1) {
+      this.transactions[index]=updatedTransaction;
+    }
   }
 }
