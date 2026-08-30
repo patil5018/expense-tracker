@@ -1,10 +1,16 @@
 <h1>Add Expenses:</h1>
 
 <label>Description: </label>
-<input type="text" placeholder="Description" [(ngModel)]="description" required>
+<input type="text" placeholder="Description" [(ngModel)]="description" required (ngModelChange)="validateDescription()">
+@if(descriptionError){
+  <p>{{descriptionError}}</p>
+}
 
 <label>Amount: </label>
-<input type="number" placeholder="Amount" [(ngModel)]="amount" required min="1">
+<input type="number" placeholder="Amount" [(ngModel)]="amount" required min="1" (ngModelChange)="validateAmount()">
+@if(amountError){
+  <p>{{amountError}}</p>
+}
 
 <select [(ngModel)]="type">
   <option value="expense">Expense</option>

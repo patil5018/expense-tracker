@@ -23,6 +23,7 @@
     <p>Description: {{ transaction.description }}</p>
     <p>Amount: ₹{{ transaction.amount }}</p>
     <p>Type: {{ transaction.type }}</p>
+    <button (click)="deleteTransaction(transaction)">Delete</button>
     <hr>
   </div>
 }

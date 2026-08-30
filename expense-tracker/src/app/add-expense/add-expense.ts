@@ -16,11 +16,21 @@ export class AddExpense {
   amount: number = 0;
   type: 'income' | 'expense' = 'expense';
 
+  descriptionError: string='';
+  amountError: string='';
+
   constructor(private expenseService: Expense) {}
 
   addTransaction() {
-    if(!this.description.trim() || this.amount<=0){
-      return;
+    if(!this.description.trim()){
+      this.descriptionError='⚠ Description is required';
+    }
+    if(this.amount<=0) {
+      this.amountError='⚠ Amount is required';
+    }
+
+    if(this.descriptionError || this.amountError){
+      return
     }
       console.log("Expense added!!!! --- > " + this.description)
       console.log("Expense added!!!! --- > " + this.amount)
@@ -38,6 +48,22 @@ export class AddExpense {
       this.amount=0;
       this.type='expense';
     }
+
+  validateDescription() {
+    if(!this.description.trim()){
+        this.descriptionError='Description is required';
+      } else {
+        this.descriptionError=''
+      }
+    }
+
+  validateAmount(){
+        if(!this.amount){
+            this.amountError='Description is required';
+          } else {
+            this.amountError=''
+          }
+        }
 
 /*   getTotalIncome() {
     return this.transactions

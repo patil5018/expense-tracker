@@ -6,7 +6,16 @@ import { Transaction } from './transaction';
 })
 export class Expense {
     transactions: Transaction[] = [];
-    addTransaction(transaction: any) {
+
+    addTransaction(transaction: Transaction) {
       this.transactions.push(transaction);
     }
+
+  deleteTransaction(transaction: Transaction) {
+      const index= this.transactions.indexOf(transaction);
+
+      if(index!==-1) {
+        this.transactions.splice(index,1);
+      }
+  }
 }

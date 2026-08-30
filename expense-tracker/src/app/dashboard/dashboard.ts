@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Expense } from '../expense';
+import { Transaction } from '../transaction';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,6 +32,10 @@ export class Dashboard {
 
   getTransactions() {
     return this.expenseService.transactions;
+  }
+
+  deleteTransaction(transaction: Transaction) {
+      this.expenseService.deleteTransaction(transaction);
   }
 
 }
