@@ -10,5 +10,9 @@ export const routes: Routes = [
     {
       path: 'add-expense',
       component: AddExpense
+    },
+    {
+      path: 'edit-expense/:id',
+      component: AddExpense
     }
   ];

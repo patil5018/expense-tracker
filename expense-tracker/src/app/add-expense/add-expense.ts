@@ -3,7 +3,7 @@ import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Expense } from '../expense';
 import { Transaction,TransactionType } from '../transaction';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute  } from '@angular/router';
 
 @Component({
   selector: 'app-add-expense',
@@ -22,10 +22,29 @@ export class AddExpense implements OnInit {
   descriptionError: string='';
   amountError: string='';
 
-  constructor(private expenseService: Expense,  private router: Router) {}
+  constructor(
+      private expenseService: Expense,
+      private router: Router,
+      private route: ActivatedRoute
+    ) {}
 
   ngOnInit() {
-    this.loadTransactionForEdit();
+        const id = this.route.snapshot.paramMap.get('id');
+        console.log('Transaction ID:', id);
+        if(id) {
+          const transaction = this.expenseService.transactions.find(transaction=> transaction.id === Number(id));
+          console.log('Transaction=> ',transaction)
+            if(transaction){
+              this.description=transaction.description;
+              this.amount=transaction.amount;
+              this.type=transaction.type;
+              this.isEditing=true;
+              this.expenseService.editingTransaction=transaction;
+            }
+        }
+
+
+//     this.loadTransactionForEdit();
   }
 
   addTransaction() {

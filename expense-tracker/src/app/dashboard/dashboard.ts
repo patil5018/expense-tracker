@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Expense } from '../expense';
 import { Transaction } from '../transaction';
-import { Router } from '@angular/router';
+import { Router,RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
@@ -44,7 +44,7 @@ export class Dashboard {
 
   editTransaction(transaction: Transaction) {
             this.expenseService.editingTransaction=transaction;
-            this.router.navigate(['/add-expense']);
+            this.router.navigate(['/add-expense']); 
   }
 
   navigateToAddExpense(){
