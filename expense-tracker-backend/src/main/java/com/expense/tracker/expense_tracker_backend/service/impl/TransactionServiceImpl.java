@@ -13,8 +13,6 @@ import java.util.Optional;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    List<Transaction> transactionList = new ArrayList<>();
-
     @Autowired
     TransactionRepository transactionRepository;
 
@@ -30,6 +28,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<Transaction> testData() {
+        List<Transaction> transactionList = new ArrayList<>();
         transactionList.add(new Transaction(50000L,"Salary","income"));
         transactionList.add(new Transaction(15000L,"Rent","expense"));
         transactionRepository.saveAll(transactionList);
@@ -40,6 +39,16 @@ public class TransactionServiceImpl implements TransactionService {
     public Boolean saveTransaction(Transaction transaction){
         try {
             transactionRepository.save(transaction);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean removeTransaction(Long id) {
+        try {
+            transactionRepository.deleteById(id);
             return true;
         } catch (Exception e){
             return false;

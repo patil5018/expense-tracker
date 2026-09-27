@@ -17,7 +17,7 @@ export class AddExpense implements OnInit {
 
   description: string = '';
   amount: number = 0;
-  type: TransactionType='expense';
+  transactionType: TransactionType='expense';
 
   descriptionError: string='';
   amountError: string='';
@@ -37,7 +37,7 @@ export class AddExpense implements OnInit {
             if(transaction){
               this.description=transaction.description;
               this.amount=transaction.amount;
-              this.type=transaction.type;
+              this.transactionType=transaction.transactionType;
               this.isEditing=true;
               this.expenseService.editingTransaction=transaction;
             }
@@ -63,13 +63,13 @@ export class AddExpense implements OnInit {
     }
       console.log("Expense added!!!! --- > " + this.description)
       console.log("Expense added!!!! --- > " + this.amount)
-      console.log("Expense added!!!! --- > " + this.type)
+      console.log("Expense added!!!! --- > " + this.transactionType)
 
       const transaction: Transaction = {
         id: this.isEditing? this.expenseService.editingTransaction!.id:0,
         description: this.description,
         amount: this.amount,
-        type: this.type
+        transactionType: this.transactionType
       };
 
       if (this.isEditing) {
@@ -80,7 +80,7 @@ export class AddExpense implements OnInit {
 
       this.description='';
       this.amount=0;
-      this.type='expense';
+      this.transactionType='expense';
 
       this.router.navigate(['/']);
     }
@@ -107,7 +107,7 @@ export class AddExpense implements OnInit {
     if(transaction){
       this.description=transaction.description;
       this.amount=transaction.amount;
-      this.type=transaction.type;
+      this.transactionType=transaction.transactionType;
       this.isEditing=true;
       }
     }
