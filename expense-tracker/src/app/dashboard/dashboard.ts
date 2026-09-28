@@ -13,8 +13,6 @@ import { TransactionService } from '../services/transaction.service';
 })
 export class Dashboard implements OnInit{
 
-  transactions: Transaction[] = [];
-
   constructor(
       private expenseService: Expense,
       private router: Router,
@@ -23,27 +21,23 @@ export class Dashboard implements OnInit{
       ) {
     }
 
-  ngOnInit(): void {
-    this.transactionService.getAllTransactions()
+  ngOnInit(): void {    this.transactionService.getAllTransactions()
       .subscribe(transactions => {
         console.log('Backend transactions: ',transactions);
-        this.transactions = [...transactions];
-
-        console.log('After assignment:', this.transactions);
-        console.log('Length:', this.transactions.length);
+        this.expenseService.transactions = [...transactions];
 
         this.cdr.detectChanges();
       });
   }
 
   getTotalIncome() {
-    return this.transactions
+    return this.expenseService.transactions
       .filter(transaction => transaction.transactionType === 'income')
       .reduce((total, transaction) => total + transaction.amount, 0);
   }
 
   getTotalExpenses() {
-    return this.transactions
+    return this.expenseService.transactions
       .filter(transaction => transaction.transactionType === 'expense')
       .reduce((total, transaction) => total + transaction.amount, 0);
   }
@@ -53,23 +47,11 @@ export class Dashboard implements OnInit{
   }
 
   getTransactions() {
-    return this.transactions;
+    return this.expenseService.transactions;
   }
 
   deleteTransaction(transaction: Transaction) {
-//       this.transactionService.removeTransactionById(transaction.id);
-
-      this.transactionService.removeTransactionById(transaction.id)
-        .subscribe(response => {
-
-          this.cdr.detectChanges();
-        });
-
-        const index= this.transactions.indexOf(transaction);
-
-        if(index!==-1) {
-          this.transactions.splice(index,1);
-        }
+      this.expenseService.removeTransactionById(transaction);
   }
 
   editTransaction(transaction: Transaction) {
