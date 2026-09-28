@@ -1,32 +1,44 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy , ChangeDetectorRef } from '@angular/core';
 import { Expense } from '../expense';
 import { Transaction } from '../transaction';
 import { Router,RouterLink } from '@angular/router';
+import { TransactionService } from '../services/transaction.service';
 
 @Component({
   selector: 'app-dashboard',
   imports: [RouterLink],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
+  changeDetection: ChangeDetectionStrategy.Default
 })
-export class Dashboard {
+export class Dashboard implements OnInit{
 
   constructor(
       private expenseService: Expense,
-      private router: Router
+      private router: Router,
+      private transactionService: TransactionService,
+      private cdr: ChangeDetectorRef
       ) {
-    console.log(this.expenseService.transactions);
     }
+
+  ngOnInit(): void {    this.transactionService.getAllTransactions()
+      .subscribe(transactions => {
+        console.log('Backend transactions: ',transactions);
+        this.expenseService.transactions = [...transactions];
+
+        this.cdr.detectChanges();
+      });
+  }
 
   getTotalIncome() {
     return this.expenseService.transactions
-      .filter(transaction => transaction.type === 'income')
+      .filter(transaction => transaction.transactionType === 'income')
       .reduce((total, transaction) => total + transaction.amount, 0);
   }
 
   getTotalExpenses() {
     return this.expenseService.transactions
-      .filter(transaction => transaction.type === 'expense')
+      .filter(transaction => transaction.transactionType === 'expense')
       .reduce((total, transaction) => total + transaction.amount, 0);
   }
 
@@ -39,17 +51,16 @@ export class Dashboard {
   }
 
   deleteTransaction(transaction: Transaction) {
-      this.expenseService.deleteTransaction(transaction);
+      this.expenseService.removeTransactionById(transaction);
   }
 
   editTransaction(transaction: Transaction) {
             this.expenseService.editingTransaction=transaction;
-            this.router.navigate(['/add-expense']); 
+            this.router.navigate(['/add-expense']);
   }
 
   navigateToAddExpense(){
       this.expenseService.editingTransaction=null;
       this.router.navigate(['/add-expense']);
   }
-
 }

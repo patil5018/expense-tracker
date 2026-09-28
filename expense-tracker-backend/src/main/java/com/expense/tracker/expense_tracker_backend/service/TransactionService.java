@@ -14,4 +14,6 @@ public interface TransactionService {
     Optional<Transaction> getTransaction(Long id);
 
     Boolean saveTransaction(Transaction transaction);
+
+    Boolean removeTransaction(Long id);
 }

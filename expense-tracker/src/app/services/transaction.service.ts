@@ -31,4 +31,11 @@ export class TransactionService {
             `${this.apiUrl}/removeTransaction?id=${id}`
             );
           }
+
+    saveTransaction(transaction: any): Observable<boolean> {
+        return this.httpClient.post<boolean>(
+            `${this.apiUrl}/saveTransaction`,
+            transaction
+            );
+          }
 }

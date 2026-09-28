@@ -17,7 +17,7 @@ export class AddExpense implements OnInit {
 
   description: string = '';
   amount: number = 0;
-  type: TransactionType='expense';
+  transactionType: TransactionType='expense';
 
   descriptionError: string='';
   amountError: string='';
@@ -37,14 +37,11 @@ export class AddExpense implements OnInit {
             if(transaction){
               this.description=transaction.description;
               this.amount=transaction.amount;
-              this.type=transaction.type;
+              this.transactionType=transaction.transactionType;
               this.isEditing=true;
               this.expenseService.editingTransaction=transaction;
             }
         }
-
-
-//     this.loadTransactionForEdit();
   }
 
   addTransaction() {
@@ -61,29 +58,25 @@ export class AddExpense implements OnInit {
     if(this.descriptionError || this.amountError){
       return
     }
-      console.log("Expense added!!!! --- > " + this.description)
-      console.log("Expense added!!!! --- > " + this.amount)
-      console.log("Expense added!!!! --- > " + this.type)
+    const transaction: Transaction = {
+      id: this.isEditing? this.expenseService.editingTransaction!.id:0,
+      description: this.description,
+      amount: this.amount,
+      transactionType: this.transactionType
+    };
 
-      const transaction: Transaction = {
-        id: this.isEditing? this.expenseService.editingTransaction!.id:0,
-        description: this.description,
-        amount: this.amount,
-        type: this.type
-      };
-
-      if (this.isEditing) {
-        this.expenseService.updateTransaction(transaction);
-      } else {
-        this.expenseService.addTransaction(transaction);
-      }
-
-      this.description='';
-      this.amount=0;
-      this.type='expense';
-
-      this.router.navigate(['/']);
+    if (this.isEditing) {
+      this.expenseService.updateTransaction(transaction);
+    } else {
+      this.expenseService.addTransaction(transaction);
     }
+
+    this.description='';
+    this.amount=0;
+    this.transactionType='expense';
+
+    this.router.navigate(['/']);
+  }
 
   validateDescription() {
     if(!this.description.trim()){
@@ -107,23 +100,8 @@ export class AddExpense implements OnInit {
     if(transaction){
       this.description=transaction.description;
       this.amount=transaction.amount;
-      this.type=transaction.type;
+      this.transactionType=transaction.transactionType;
       this.isEditing=true;
       }
     }
-/*   getTotalIncome() {
-    return this.transactions
-      .filter(transaction => transaction.type === 'income')
-      .reduce((total, transaction) => total + transaction.amount, 0);
-  }
-
-  getTotalExpenses() {
-    return this.transactions
-      .filter(transaction => transaction.type === 'expense')
-      .reduce((total, transaction) => total + transaction.amount, 0);
-  }
-
-  getBalance() {
-    return this.getTotalIncome() - this.getTotalExpenses();
-  } */
 }

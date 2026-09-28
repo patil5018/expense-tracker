@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController()
 @RequestMapping("/api/transactions")
+@CrossOrigin(origins = "*")
 public class TransactionController {
 
     @Autowired
@@ -32,5 +33,10 @@ public class TransactionController {
     @PostMapping("/saveTransaction")
     public Boolean saveTransaction(@RequestBody Transaction transaction){
         return transactionService.saveTransaction(transaction);
+    }
+
+    @DeleteMapping("/removeTransaction")
+    public Boolean removeTransaction(@RequestParam Long id) {
+        return transactionService.removeTransaction(id);
     }
 }
